@@ -1,3 +1,5 @@
+'use client'
+
 import { BudgetProgress } from '@/features/dashboard/components/BudgetProgress'
 import { DailyHighlight } from '@/features/dashboard/components/DailyHighlight'
 import { PomodoroStats } from '@/features/dashboard/components/PomodoroStats'
@@ -7,6 +9,12 @@ import { StreaksHeatmap } from '@/features/dashboard/components/StreaksHeatmap'
 import { TasksSummary } from '@/features/dashboard/components/TasksSummary'
 import { TotalExpenseCard } from '@/features/dashboard/components/TotalExpenseCard'
 import { useQuery } from '@tanstack/react-query'
+
+type Budget = {
+  category: string
+  used: number
+  limit: number
+}
 
 export default function DashboardPage() {
   const { data, isLoading } = useQuery({
@@ -42,8 +50,8 @@ export default function DashboardPage() {
       <TotalExpenseCard total={data.total} />
 
       <div className="space-y-4">
-        {data.budgets.map((b) => (
-          <BudgetProgress key={b.category} {...b} />
+        {data.budgets.map((budget: Budget) => (
+          <BudgetProgress key={budget.category} {...budget} />
         ))}
       </div>
       <div className="col-span-1 md:col-span-2">
