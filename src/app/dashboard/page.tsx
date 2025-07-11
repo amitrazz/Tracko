@@ -26,7 +26,11 @@ export default async function DashboardPage() {
     { name: "DSA", percentage: 40 },
     { name: "JavaScript", percentage: 70 },
   ]
-  const streaks = [/* heatmap data */]
+  const streaks = [
+    { date: "2025-07-11", level: 4 },
+    { date: "2025-07-10", level: 3 },
+    { date: "2025-07-09", level: 2 },
+  ]
   const highlight = "Finished 3 DSA problems and refactored dashboard."
 
   return (
