@@ -1,6 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Expense } from '@/features/expenses/types'
 
-export const RecentExpenses = ({ items }: { items: Array<{ category: string; amount: number; date: string }> }) => (
+export const RecentExpenses = ({ items }: { items: Expense[] }) => (
   <Card>
     <CardHeader>
       <CardTitle>Recent Expenses</CardTitle>
@@ -9,8 +10,11 @@ export const RecentExpenses = ({ items }: { items: Array<{ category: string; amo
       <ul className="space-y-2">
         {items.map((item, idx) => (
           <li key={idx} className="flex justify-between text-sm">
-            <span>{item.category}</span>
-            <span className="text-muted-foreground">₹{item.amount} • {new Date(item.date).toLocaleDateString()}</span>
+            <span className="font-bold">{item.category}</span>
+            <span>{item.description}</span>
+            <span className="text-muted-foreground">
+              ₹{item.amount} • {new Date(item.date).toLocaleDateString()}
+            </span>
           </li>
         ))}
       </ul>

@@ -1,5 +1,6 @@
 'use client'
 
+import Layout from '@/components/layout/Layout'
 import { Loader } from '@/components/ui/loader'
 import { BudgetProgress } from '@/features/dashboard/components/BudgetProgress'
 import { DailyHighlight } from '@/features/dashboard/components/DailyHighlight'
@@ -21,12 +22,9 @@ export default function DashboardPage() {
   const { data, isLoading } = useQuery({
     queryKey: ['dashboard-data'],
     queryFn: async () => {
-      const res = await fetch('/api/dashboard-data', {
+      const res = await fetch('/api/dashboard', {
         cache: 'no-store',
       })
-      if (!res.ok) {
-        throw new Error('Failed to fetch dashboard data')
-      }
       return res.json()
     },
   })
@@ -34,30 +32,32 @@ export default function DashboardPage() {
   if (isLoading || !data) return <Loader message="Loading dashboard…" />
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2">
-      <div className="col-span-1 md:col-span-2">
-        <DailyHighlight content={data.highlight} />
-      </div>
+    <Layout>
+      <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2">
+        <div className="col-span-1 md:col-span-2">
+          <DailyHighlight content={data.highlight} />
+        </div>
 
-      <div className="col-span-1 grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2">
-        <TasksSummary tasks={data.tasks} />
-        <PomodoroStats completed={4} totalTime={180} avgSession={45} />
-      </div>
+        <div className="col-span-1 grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2">
+          <TasksSummary tasks={data.tasks} />
+          <PomodoroStats completed={4} totalTime={180} avgSession={45} />
+        </div>
 
-      <div className="col-span-1 grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2">
-        <SkillProgress skills={data.skills} />
-        <StreaksHeatmap data={data.streaks} />
-      </div>
-      <TotalExpenseCard total={data.total} />
+        <div className="col-span-1 grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2">
+          <SkillProgress skills={data.skills} />
+          <StreaksHeatmap data={data.streaks} />
+        </div>
+        <TotalExpenseCard total={data.total} />
 
-      <div className="space-y-4">
-        {data.budgets.map((budget: Budget) => (
-          <BudgetProgress key={budget.category} {...budget} />
-        ))}
+        <div className="space-y-4">
+          {data.budgets.map((budget: Budget) => (
+            <BudgetProgress key={budget.category} {...budget} />
+          ))}
+        </div>
+        <div className="col-span-1 md:col-span-2">
+          <RecentExpenses items={data.recentExpenses} />
+        </div>
       </div>
-      <div className="col-span-1 md:col-span-2">
-        <RecentExpenses items={data.recentExpenses} />
-      </div>
-    </div>
+    </Layout>
   )
 }

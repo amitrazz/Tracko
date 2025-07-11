@@ -1,7 +1,6 @@
 'use client'
 
 import DashboardPage from '@/app/dashboard/page'
-import { Header } from '@/components/layout/Header'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -17,7 +16,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <DashboardPage />
     </>
   )
