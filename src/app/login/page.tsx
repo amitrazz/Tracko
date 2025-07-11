@@ -30,7 +30,8 @@ export default function LoginPage() {
     }
   }, [])
 
-  const handleLogin = () => {
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
     setLoading(true)
 
     setTimeout(() => {
@@ -53,44 +54,46 @@ export default function LoginPage() {
           <CardDescription>Enter your credentials to continue.</CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value)
-                setError('')
-              }}
-              placeholder="Enter username"
-              disabled={loading}
-            />
-          </div>
+        <form onSubmit={handleLogin}>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value)
+                  setError('')
+                }}
+                placeholder="Enter username"
+                disabled={loading}
+              />
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value)
-                setError('')
-              }}
-              placeholder="Enter password"
-              disabled={loading}
-            />
-          </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setError('')
+                }}
+                placeholder="Enter password"
+                disabled={loading}
+              />
+            </div>
 
-          {error && <p className="text-destructive text-sm">{error}</p>}
-        </CardContent>
+            {error && <p className="text-destructive text-sm">{error}</p>}
+          </CardContent>
 
-        <CardFooter>
-          <Button className="w-full" onClick={handleLogin} disabled={loading}>
-            {loading ? 'Logging in…' : 'Login'}
-          </Button>
-        </CardFooter>
+          <CardFooter>
+            <Button className="w-full" type="submit" disabled={loading}>
+              {loading ? 'Logging in…' : 'Login'}
+            </Button>
+          </CardFooter>
+        </form>
       </Card>
     </div>
   )
