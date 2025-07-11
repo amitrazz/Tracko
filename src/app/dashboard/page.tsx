@@ -1,5 +1,6 @@
 'use client'
 
+import { Loader } from '@/components/ui/loader'
 import { BudgetProgress } from '@/features/dashboard/components/BudgetProgress'
 import { DailyHighlight } from '@/features/dashboard/components/DailyHighlight'
 import { PomodoroStats } from '@/features/dashboard/components/PomodoroStats'
@@ -30,7 +31,7 @@ export default function DashboardPage() {
     },
   })
 
-  if (isLoading || !data) return <p className="p-4">Loading dashboard…</p>
+  if (isLoading || !data) return <Loader message="Loading dashboard…" />
 
   return (
     <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2">
