@@ -18,6 +18,7 @@ import { useExpenses } from '@/features/expenses/useExpenses'
 import { format } from 'date-fns'
 import { Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 export default function ExpensesPage() {
   const { expenses, isLoading, deleteExpense, addExpense, updateExpense } =
@@ -32,10 +33,11 @@ export default function ExpensesPage() {
 
   const handleSave = (data: Omit<Expense, 'id'>) => {
     if (selectedExpense) {
-      console.log('Updating expense:', selectedExpense.id, data)
       updateExpense.mutate({ ...selectedExpense, ...data })
+      toast.success('Expense added successfully!')
     } else {
       addExpense.mutate(data)
+      toast.success('Expense added successfully!')
     }
     setSelectedExpense(null)
   }
