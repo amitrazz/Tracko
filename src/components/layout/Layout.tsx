@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Footer */}
       <footer className="border-t bg-gray-100 py-4 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} TrackNest. All rights reserved.
+        © {new Date().getFullYear()} Tracko. All rights reserved.
       </footer>
     </div>
   )
